@@ -1,0 +1,39 @@
+GUI-Graphical User Interface that helps user to graphically interact with the app.
+    User interface that is used to interact with the app.	
+    Communication between user and app.
+    Eg:-Icons on the screen that helps user to interact with app. (Facebbok.com)
+
+API-Application Programming Interface is an interface(software) that connect/communicates between two apps.
+    Eg:-Weather App shows map data of Google maps through Google Map API Key.
+    [Google map API helps to interact between Weather APP and Google Map.]
+
+REST API-Representational State Transfer API is an architectural style for API that uses HTTP requests to perform CRUD. we will be having same URL for CRUD. We are transferring the state of a resource when requested.
+	State of resource at any particular time is resource representation.
+	Only using mongoose then we will have different URLs for CRUD.
+  
+require()=      -it reads a JavaScript file
+                -executes the file
+                -return the exports object
+
+                var example = require('./example.js')
+                example = {
+                  message: "hi",
+                  say: [Function]
+                }
+
+Module exports ~ exports are the instructions that tell Node. js which bits of code (functions, objects, strings, etc.) to export from a given file so that other files are allowed to access the exported code.
+
+express.Router()  =When var app = express() is called, an app object is returned. Think of this as the main app.
+When var router = express.Router() is called, a slightly different mini app is returned. The idea behind the mini app is that each route in your app can become quite complicated, and you'd benefit from moving all that code into a separate file. Each file's router becomes a mini app, which has a very similar structure to the main app.
+
+
+{
+  "name": "product1",
+  "description": "This is a sample product",
+  "price": 1200,
+  "images": {
+      "public_id": "sample Image",
+      "url": "sampleUrl"
+  },
+  "category": "laptop"
+}
