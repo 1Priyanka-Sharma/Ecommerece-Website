@@ -7,6 +7,5 @@ const mDatabase=()=>{mongoose.connect(db, {
   useUnifiedTopology: true,
 })
   .then(() => console.log("database connected"))
-  .catch((err) => console.log(err));
 }
 module.exports=mDatabase;
