@@ -1,3 +1,4 @@
+// Configuration file imported
 require("dotenv").config({ path: "backend/.env" });
 
 // Imported Express app
@@ -10,7 +11,7 @@ const database = require("./mongoose_connection/database");
 process.on("uncaughtException", (err) => {
   console.log(`Error:${err.message}`);
   console.log(`Shutting down the server due to Uncaught Exception`);
-    process.exit(1);
+  process.exit(1);
 });
 
 database();
