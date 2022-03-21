@@ -1,5 +1,9 @@
 const mongoose=require('mongoose');
 const validator=require('validator');
+const bcrypt=require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
 const userSchema= new mongoose.Schema({
     name: {
       type: String,
@@ -42,16 +46,18 @@ const userSchema= new mongoose.Schema({
     resetPasswordExpire: Date,
   });
   
+  // Before saving the data (pre) do this task.
   userSchema.pre("save", async function (next) {
+    // If password is modified then only hash the changed password otherwise the stored password id already hashed.
     if (!this.isModified("password")) {
       next();
     }
-  
-    this.password = await bcrypt.hash(this.password, 10);
+      this.password = await bcrypt.hash(this.password, 10);
   });
   
-  // JWT TOKEN
+  // JWT TOKEN-taken generated and stored in cookie
   userSchema.methods.getJWTToken = function () {
+    // Particular user signing in
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
