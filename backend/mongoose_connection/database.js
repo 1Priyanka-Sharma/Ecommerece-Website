@@ -8,4 +8,5 @@ const mDatabase=()=>{mongoose.connect(db, {
 })
   .then(() => console.log("database connected"))
 }
+// Above Promise is not handled on rejection
 module.exports=mDatabase;

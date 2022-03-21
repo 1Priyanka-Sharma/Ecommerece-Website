@@ -13,21 +13,22 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   const resultPerPage = 5;
   const productCount = await Product.countDocuments();
-  const apifeatures = new ApiFeatures(Product.find(), req.query)
+  const apiFeatures = new ApiFeatures(Product.find(), req.query)
     .search()
     .filter()
     .pagination(resultPerPage);
-  const products = await ApiFeatures.query;
-  res.status(200).json({ success: true, products });
+  const products = await apiFeatures.query;
+  res.status(200).json({ success: true, products, productCount });
 });
 
 // Get a single product details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (!product) {
+    // next() = will goto error middleware which is required and used in app.js.
     return next(new ErrorHander("Product not found", 404));
   }
-  res.status(201).json({ success: true, product, productCount });
+  res.status(201).json({ success: true, product });
 });
 
 // Update Product--Admin

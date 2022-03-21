@@ -3,6 +3,7 @@ class ApiFeatures {
     this.query = query;
     this.queryStr = queryStr;
   }
+
   search() {
     const keyword = this.queryStr.keyword
       ? {
@@ -13,16 +14,18 @@ class ApiFeatures {
           },
         }
       : {};
+
     this.query = this.query.find({ ...keyword });
     return this;
   }
   filter() {
     const querycopy = { ...this.queryStr };
+
     //Removing some feilds for category
     const removefeilds = ["keyword", "page", "limit"];
     removefeilds.forEach((key) => delete querycopy[key]);
 
-    // Filter For Price and Rating
+    // Filter For Price and Rating-because its range
     let queryStr = JSON.stringify(querycopy);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
 
