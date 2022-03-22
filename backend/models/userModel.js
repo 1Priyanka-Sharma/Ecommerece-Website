@@ -43,29 +43,35 @@ const userSchema= new mongoose.Schema({
     },
   
     resetPasswordToken: String,
+    // 
     resetPasswordExpire: Date,
   });
   
-  // Before saving the data (pre) do this task.
+  // To hash the password before saving it.
   userSchema.pre("save", async function (next) {
-    // If password is modified then only hash the changed password otherwise the stored password id already hashed.
+
+    // This is for update Profile:- If password is modified then only hash the changed password otherwise the stored password id already hashed.
+  //  isModified()-mongoose function Returns true if any of the given paths is modified, else false.
     if (!this.isModified("password")) {
       next();
     }
       this.password = await bcrypt.hash(this.password, 10);
   });
   
-  // JWT TOKEN-taken generated and stored in cookie
+  // JWT TOKEN-to remberer that particular user for future interactions-token generated and stored in cookie
+
+  // Use "methods" on individual documents if you want to manipulate the individual document like adding tokens etc. Use the statics approach if you want query the whole collection.
   userSchema.methods.getJWTToken = function () {
-    // Particular user signing in
+    
+    // Particular user signing in-Payload+Secret_key
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+
       expiresIn: process.env.JWT_EXPIRE,
     });
   };
   
   // Compare Password
-  
-  userSchema.methods.comparePassword = async function (password) {
+    userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
   };
   
