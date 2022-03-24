@@ -10,14 +10,16 @@ const errorMiddleware=require('./middleware/error');
 app.use(express.json());
 app.use(cookieParser);
 
-// Imported Route Folder
+// Imported Route Folders
 const productRoute=require('./routes/productRoute');
 const userRoute=require('./routes/userRoute');
+const orderRoute=require('./routes/orderRoute');
 
 app.use('/api',productRoute);
 app.use('/api',userRoute);
+app.use('/api',orderRoute);
 
-// next() = will call this middleware as its after app.use('/api)-it is called for every request/path. Eg:-updateProduct, deleteProduct
+// MiddleWare for Errors-   next() = will call this middleware as its after app.use('/api)-it is called for every request/path. Eg:-updateProduct, deleteProduct
 app.use(errorMiddleware);
 
 module.exports=app;
